@@ -101,7 +101,9 @@ public class ManagerTusk {
     public void removeSubTuskById(int id){
         epicId=subTuskMap.get(id).getEpicId();
         EpicTusk epic = epicTuskMap.get(epicId);
-        epic.subTasksId.remove(id);
+        Integer id1 = id;
+        Object idObject = id1;
+        epic.subTasksId.remove(idObject);
         subTuskMap.remove(id);
         createStatusEpic(epicId);
     }

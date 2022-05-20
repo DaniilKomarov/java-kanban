@@ -15,6 +15,7 @@ public class Main {
         manager.createEpicTusk(tusk3);
         manager.createSubTusk(subtask);
         manager.createSubTusk(tusk4);
+        manager.removeSubTuskById(5);
         System.out.println(manager.getAllListEpicTuck());
         System.out.println(manager.getSubTuskEpic(tusk1));
         System.out.println(manager.getSubTuskEpic(tusk3));
