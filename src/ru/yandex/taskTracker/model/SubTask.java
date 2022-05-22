@@ -1,4 +1,8 @@
-public class SubTask extends Tusk{
+package ru.yandex.taskTracker.model;
+
+import ru.yandex.taskTracker.TaskStatus;
+
+public class SubTask extends Task {
      int EpicId;
 
     public SubTask(String name, String description, TaskStatus status) {
