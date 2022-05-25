@@ -1,19 +1,19 @@
 package ru.yandex.taskTracker.model;
 
-import ru.yandex.taskTracker.TaskStatus;
-
 public class SubTask extends Task {
-     int EpicId;
+     int epicId;
 
-    public SubTask(String name, String description, TaskStatus status) {
+    public SubTask(String name, String description, TaskStatus status, int epicId) {
+
         super(name, description, status);
+        this.epicId =epicId;
     }
 
     public void setEpicId(int epicId) {
-        EpicId = epicId;
+        this.epicId = epicId;
     }
 
     public int getEpicId() {
-        return EpicId;
+        return epicId;
     }
 }

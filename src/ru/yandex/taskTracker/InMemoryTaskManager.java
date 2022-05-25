@@ -1,117 +1,120 @@
 package ru.yandex.taskTracker;
-
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+
 import ru.yandex.taskTracker.model.*;
-public class ManagerTusk {
+public class InMemoryTaskManager implements TaskManager {
     private HashMap<Integer, Task> taskMap = new HashMap<>();
     private HashMap<Integer, SubTask> subTuskMap = new HashMap<>();
     private HashMap<Integer, Epic> epicMap = new HashMap<>();
+    private HistoryManager historyManager = Managers.getDefaultHistory();
     private int id;
-    private int epicId; // можно ее оставить? также получается вроде удобнее или это получается дублирование ?
-    //не получится отсылаться к прошлому айди т.к. может быть подряд несколько саб тасков
-    //  если вызывать при созаднии саб таска Epic.getId тогда айди должно быть статично
-    // или при создании эпика сетер , то тоже статической
+
+    @Override
     public int generateId(){
         id++;
         return id;
     }
 
-
+    @Override
     public void createTask(Task task){
         id = generateId();
         task.setId(id);
         taskMap.put(id, task);
 
     }
-
+    @Override
     public void createSubTask(SubTask subtask){
         id = generateId();
         subtask.setId(id);
         subTuskMap.put(id,subtask);
-        subtask.setEpicId(epicId);
-        addSubTaskId(epicId,id);
-        createStatusEpic(epicId);
+        addSubTaskId(subtask.getEpicId(),id);
+        createStatusEpic(subtask.getEpicId());
     }
-
+    @Override
     public void createEpic(Epic epic){
         id = generateId();
         epic.setId(id);
         epicMap.put(id, epic);
-        epicId = epic.getId();
     }
-
+    @Override
     public ArrayList<Task> getAllListTask() {
 
         return new ArrayList<>(taskMap.values());
     }
-
+    @Override
     public ArrayList<SubTask> getAllListSubTask() {
 
         return new ArrayList<>(subTuskMap.values());
     }
-
+    @Override
     public ArrayList<Epic> getAllListEpic() {
 
         return new ArrayList<>(epicMap.values());
     }
 
-
+    @Override
     public Task getTaskById(int id) {
-
+        historyManager.add(taskMap.get(id));
         return taskMap.get(id);
     }
-
+    @Override
     public SubTask getSubTaskById(int id) {
-
+        historyManager.add(subTuskMap.get(id));
         return subTuskMap.get(id);
     }
-
+    @Override
     public Epic getEpicById(int id) {
-
+        historyManager.add(epicMap.get(id));
         return epicMap.get(id);
     }
-
+    @Override
     public void clearAllTask(){
 
         taskMap.clear();
     }
+    @Override
     public void clearAllSubTask(){
 
         subTuskMap.clear();
     }
+    @Override
     public void clearAllEpic(){
 
         epicMap.clear();
         subTuskMap.clear();
     }
-
+    @Override
     public void updateTask(Task task){
 
         taskMap.put(task.getId(), task);
     }
-
+    @Override
     public void updateSubTask(SubTask subTusk){
 
         taskMap.put(subTusk.getId(),subTusk);
     }
-
+    @Override
     public void updateEpic(Epic epic){
 
         epicMap.put(epic.getId(), epic);
     }
+    @Override
     public void removeTaskById(int id){
 
         taskMap.remove(id);
     }
+    @Override
     public void removeSubTaskById(int id){
-        epicId=subTuskMap.get(id).getEpicId();
+        int epicId=subTuskMap.get(id).getEpicId();
         Epic epic = epicMap.get(epicId);
         Integer id1 = id;
         epic.subTasksIds.remove(id1);
         subTuskMap.remove(id);
         createStatusEpic(epicId);
     }
+    @Override
     public void removeEpicById(int id){
         Epic epic = epicMap.get(id);
         ArrayList<Integer> epicSubRemove = new ArrayList<>();
@@ -127,6 +130,7 @@ public class ManagerTusk {
         (epicMap.get(epicId)).setSubTasksIds(id);
 
     }
+    @Override
     public ArrayList<SubTask> getSubTaskEpic(Epic epic){
         ArrayList<SubTask> subTasks = new ArrayList<>();
         for (Integer subId:epic.getSubTasksIds()){
@@ -152,6 +156,10 @@ public class ManagerTusk {
             epic.setStatus(TaskStatus.IN_PROGRESS);
         }
 
+    }
+    @Override
+    public List<Task> getHistory(){
+        return historyManager.getHistory();
     }
 
 }

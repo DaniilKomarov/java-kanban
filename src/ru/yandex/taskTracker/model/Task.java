@@ -1,8 +1,6 @@
 package ru.yandex.taskTracker.model;
 import java.util.Objects;
 
-import ru.yandex.taskTracker.TaskStatus;
-
 public class Task {
     private String name;
     private String description;
