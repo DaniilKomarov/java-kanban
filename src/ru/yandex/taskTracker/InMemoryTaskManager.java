@@ -102,11 +102,12 @@ public class InMemoryTaskManager implements TaskManager {
     }
     @Override
     public void removeTaskById(int id){
-
+        historyManager.remove(id);
         taskMap.remove(id);
     }
     @Override
     public void removeSubTaskById(int id){
+        historyManager.remove(id);
         int epicId=subTuskMap.get(id).getEpicId();
         Epic epic = epicMap.get(epicId);
         Integer id1 = id;
@@ -116,12 +117,15 @@ public class InMemoryTaskManager implements TaskManager {
     }
     @Override
     public void removeEpicById(int id){
+
         Epic epic = epicMap.get(id);
         ArrayList<Integer> epicSubRemove = new ArrayList<>();
         epicSubRemove=epic.getSubTasksIds();
         for(Integer idSub:epicSubRemove){
             subTuskMap.remove(idSub);
+            historyManager.remove(idSub);
         }
+        historyManager.remove(id);
         epicMap.remove(id);
     }
 
