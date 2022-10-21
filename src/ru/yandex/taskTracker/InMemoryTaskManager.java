@@ -111,7 +111,7 @@ public class InMemoryTaskManager implements TaskManager {
         int epicId=subTuskMap.get(id).getEpicId();
         Epic epic = epicMap.get(epicId);
         Integer id1 = id;
-        epic.subTasksIds.remove(id1);
+        epic.getSubTasksIds().remove(id1);
         subTuskMap.remove(id);
         createStatusEpic(epicId);
     }

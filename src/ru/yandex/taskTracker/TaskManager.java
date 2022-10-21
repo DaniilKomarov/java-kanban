@@ -6,45 +6,45 @@ import java.util.List;
 import ru.yandex.taskTracker.model.*;
 public interface TaskManager {
 
-    public int generateId();
+     int generateId();
 
-    public void createTask(Task task);
+     void createTask(Task task);
 
-    public void createSubTask(SubTask subtask);
+     void createSubTask(SubTask subtask);
 
-    public void createEpic(Epic epic);
+     void createEpic(Epic epic);
 
-    public ArrayList<Task> getAllListTask();
+     ArrayList<Task> getAllListTask();
 
-    public ArrayList<SubTask> getAllListSubTask();
+     ArrayList<SubTask> getAllListSubTask();
 
-    public ArrayList<Epic> getAllListEpic();
+     ArrayList<Epic> getAllListEpic();
 
-    public Task getTaskById(int id);
+     Task getTaskById(int id);
 
-    public SubTask getSubTaskById(int id);
+     SubTask getSubTaskById(int id);
 
-    public Epic getEpicById(int id);
+     Epic getEpicById(int id);
 
-    public void clearAllTask();
+     void clearAllTask();
 
-    public void clearAllSubTask();
+     void clearAllSubTask();
 
-    public void clearAllEpic();
+     void clearAllEpic();
 
-    public void updateTask(Task task);
+     void updateTask(Task task);
 
-    public void updateSubTask(SubTask subTusk);
+     void updateSubTask(SubTask subTusk);
 
-    public void updateEpic(Epic epic);
+     void updateEpic(Epic epic);
 
-    public void removeTaskById(int id);
+     void removeTaskById(int id);
 
-    public void removeSubTaskById(int id);
+     void removeSubTaskById(int id);
 
-    public void removeEpicById(int id);
+     void removeEpicById(int id);
 
-    public ArrayList<SubTask> getSubTaskEpic(Epic epic);
-    public List<Task> getHistory();
+     ArrayList<SubTask> getSubTaskEpic(Epic epic);
+     List<Task> getHistory();
 
 }

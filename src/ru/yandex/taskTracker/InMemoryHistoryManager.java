@@ -1,6 +1,7 @@
 package ru.yandex.taskTracker;
 
 import ru.yandex.taskTracker.model.Task;
+import ru.yandex.taskTracker.Node;
 
 import java.util.*;
 
@@ -16,7 +17,7 @@ class InMemoryHistoryManager implements HistoryManager{
     @Override
     public void add(Task task) {
         if(nodeMap.size() == 10) {
-            int id =first.task.getId();
+            int id = first.getTask().getId();
             remove(id);
             nodeMap.remove(id);
         }
@@ -38,20 +39,20 @@ class InMemoryHistoryManager implements HistoryManager{
          removeNode(node);
      }
      private void removeNode(Node node){
-        if (node.prev == null){
-            if(node.next !=null){
-                (node.next).prev = null;
-                first = node.next;
+        if (node.getPrev() == null){
+            if(node.getNext() !=null){
+                (node.getNext()).setPrev(null);
+                first = node.getNext();
             }else{
                 first = null;
             }
 
-        }else if(node.next == null){
-            (node.prev).next = null;
-            node.prev= last;
+        }else if(node.getNext() == null){
+            (node.getPrev()).setNext(null);
+            node.setPrev(last);
         }else {
-            (node.prev).next = node.next;
-            (node.next).prev = node.prev;
+            (node.getPrev()).setNext(node.getNext());
+            (node.getNext()).setPrev(node.getPrev());
         }
      }
 
@@ -67,7 +68,7 @@ class InMemoryHistoryManager implements HistoryManager{
                 first = newNode;
                 last = newNode;
             } else{
-                    last.next = newNode;
+                    last.setNext(newNode);
                     last= newNode;
                 }
             }
@@ -75,8 +76,8 @@ class InMemoryHistoryManager implements HistoryManager{
         List<Task> taskHistory = new ArrayList<>();
         Node node = first;
         while (node!=null){
-            taskHistory.add(node.task);
-            node = node.next;
+            taskHistory.add(node.getTask());
+            node = node.getNext();
 
         }
         return taskHistory;
