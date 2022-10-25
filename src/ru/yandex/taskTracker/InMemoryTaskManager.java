@@ -5,10 +5,11 @@ import java.util.List;
 
 import ru.yandex.taskTracker.model.*;
 public class InMemoryTaskManager implements TaskManager {
-    private HashMap<Integer, Task> taskMap = new HashMap<>();
-    private HashMap<Integer, SubTask> subTuskMap = new HashMap<>();
-    private HashMap<Integer, Epic> epicMap = new HashMap<>();
-    private HistoryManager historyManager = Managers.getDefaultHistory();
+    protected HashMap<Integer, Task> taskMap = new HashMap<>();
+    protected HashMap<Integer, SubTask> subTuskMap = new HashMap<>();
+    protected HashMap<Integer, Epic> epicMap = new HashMap<>();
+    protected HistoryManager historyManager = Managers.getDefaultHistory();
+
     private int id;
 
     @Override

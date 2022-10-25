@@ -1,4 +1,6 @@
 package ru.yandex.taskTracker.model;
+import ru.yandex.taskTracker.TaskType;
+
 import java.util.Objects;
 
 public class Task {
@@ -6,11 +8,17 @@ public class Task {
     private String description;
     protected  int id;
     private TaskStatus status;
+    private TaskType type = TaskType.TASK;
+
+    public TaskType getType() {
+        return type;
+    }
 
     public Task(String name, String description, TaskStatus status) {
         this.name = name;
         this.description = description;
         this.status = status;
+
     }
 
 

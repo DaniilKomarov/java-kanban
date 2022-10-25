@@ -1,7 +1,10 @@
 package ru.yandex.taskTracker.model;
 
+import ru.yandex.taskTracker.TaskType;
+
 public class SubTask extends Task {
      private int epicId;
+    private TaskType type = TaskType.SUBTASK;
 
     public SubTask(String name, String description, TaskStatus status, int epicId) {
 
@@ -15,5 +18,10 @@ public class SubTask extends Task {
 
     public int getEpicId() {
         return epicId;
+    }
+
+    @Override
+    public TaskType getType() {
+        return type;
     }
 }
