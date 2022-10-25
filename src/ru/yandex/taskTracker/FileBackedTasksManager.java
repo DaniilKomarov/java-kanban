@@ -93,10 +93,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager{
         save();
     }
 
-    @Override
-    public List<Task> getHistory() {
-        return super.getHistory();
-    }
+
     private void save(){
         try(BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file))){
             bufferedWriter.write("id,type,name,status,description,epic");
