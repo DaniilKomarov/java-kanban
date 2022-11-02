@@ -38,6 +38,8 @@ public class Main {
         System.out.println(manager.getHistory());
         manager.getSubTaskById(5);
         System.out.println(manager.getHistory());
+        manager.removeSubTaskById(5);
+        System.out.println(manager.getHistory());
         manager.removeSubTaskById(2);
         System.out.println(manager.getHistory());
 

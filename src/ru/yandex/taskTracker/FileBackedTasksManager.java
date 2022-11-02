@@ -1,5 +1,6 @@
 package ru.yandex.taskTracker;
 
+import ru.yandex.taskTracker.history.HistoryManager;
 import ru.yandex.taskTracker.model.Epic;
 import ru.yandex.taskTracker.model.SubTask;
 import ru.yandex.taskTracker.model.Task;

@@ -1,4 +1,4 @@
-package ru.yandex.taskTracker;
+package ru.yandex.taskTracker.history;
 
 import ru.yandex.taskTracker.model.Task;
 

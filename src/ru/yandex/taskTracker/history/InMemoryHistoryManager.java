@@ -1,16 +1,17 @@
-package ru.yandex.taskTracker;
+package ru.yandex.taskTracker.history;
 
+import ru.yandex.taskTracker.history.HistoryManager;
+import ru.yandex.taskTracker.history.Node;
 import ru.yandex.taskTracker.model.Task;
-import ru.yandex.taskTracker.Node;
+
 
 import java.util.*;
 
-class InMemoryHistoryManager implements HistoryManager{
+public class InMemoryHistoryManager implements HistoryManager {
     private List<Task> taskHistory= new ArrayList<>();
-    private Map<Integer,Node> nodeMap = new HashMap<>();
+    private Map<Integer, Node> nodeMap = new HashMap<>();
     private Node last;
     private Node first;
-    List<Integer> pam = new LinkedList();
 
 
 

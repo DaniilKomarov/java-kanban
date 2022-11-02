@@ -1,7 +1,5 @@
 package ru.yandex.taskTracker.model;
 
-import ru.yandex.taskTracker.TaskType;
-
 import java.util.ArrayList;
 
 public class Epic extends Task {

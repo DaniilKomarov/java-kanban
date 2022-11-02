@@ -1,7 +1,5 @@
 package ru.yandex.taskTracker.model;
 
-import ru.yandex.taskTracker.TaskType;
-
 public class SubTask extends Task {
      private int epicId;
     private TaskType type = TaskType.SUBTASK;

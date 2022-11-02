@@ -1,5 +1,9 @@
 package ru.yandex.taskTracker;
 
+import ru.yandex.taskTracker.history.HistoryManager;
+import ru.yandex.taskTracker.history.InMemoryHistoryManager;
+
+
 import java.io.File;
 
 class Managers {

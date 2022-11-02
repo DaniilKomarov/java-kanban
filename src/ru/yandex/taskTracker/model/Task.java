@@ -1,5 +1,4 @@
 package ru.yandex.taskTracker.model;
-import ru.yandex.taskTracker.TaskType;
 
 import java.util.Objects;
 

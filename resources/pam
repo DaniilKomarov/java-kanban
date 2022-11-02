@@ -1,9 +1,8 @@
 id,type,name,status,description,epic
 4,SUBTASK,Задача 5 ,IN_PROGRESS,Пам5 Пам5,3
-5,SUBTASK,Задача 6 ,DONE,Пам6 Пам6,3
 6,SUBTASK,Задача 7 ,DONE,Пам7 Пам7,3
 1,EPIC,Задача 2 ,IN_PROGRESS,Пам2 Пам2
 3,EPIC,Задача 4 ,IN_PROGRESS,Пам4 Пам4
 
 
-1,3,4,6,5
+1,3,4,6
