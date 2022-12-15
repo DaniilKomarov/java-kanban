@@ -1,8 +1,11 @@
-id,type,name,status,description,epic
-4,SUBTASK,Задача 5 ,IN_PROGRESS,Пам5 Пам5,3
-6,SUBTASK,Задача 7 ,DONE,Пам7 Пам7,3
-1,EPIC,Задача 2 ,IN_PROGRESS,Пам2 Пам2
-3,EPIC,Задача 4 ,IN_PROGRESS,Пам4 Пам4
+id,type,name,status,description,duration,startTime,endTime,epic
+1,TASK,Task1,NEW,gfg,30,null,null
+2,EPIC,Задача 2 ,NEW,Пам2 Пам2,50,2122-01-01T00:00,2122-01-01T00:50
+4,EPIC,Задача 4 ,DONE,Пам4 Пам4,190,2222-02-02T00:21,2222-02-02T01:01
+3,SUBTASK,Задача 3 ,NEW,Пам1 Пам1,50,2122-01-01T00:00,2122-01-01T00:50,2
+5,SUBTASK,Задача 5 ,IN_PROGRESS,Пам5 Пам5,50,2032-02-02T00:20,2032-02-02T01:10,4
+6,SUBTASK,Задача 6 ,DONE,Пам6 Пам6,50,2022-02-02T00:20,2022-02-02T01:10,4
+7,SUBTASK,Задача 7 ,DONE,Пам7 Пам7,40,2222-02-02T00:21,2222-02-02T01:01,4
 
 
-1,3,4,6
+1,2,4,5,6,3

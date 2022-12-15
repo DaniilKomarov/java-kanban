@@ -2,6 +2,7 @@ package ru.yandex.taskTracker;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import ru.yandex.taskTracker.model.*;
 public interface TaskManager {
@@ -46,5 +47,8 @@ public interface TaskManager {
 
      ArrayList<SubTask> getSubTaskEpic(Epic epic);
      List<Task> getHistory();
+     Set<Task> getPrioritizedTasks();
+
+
 
 }

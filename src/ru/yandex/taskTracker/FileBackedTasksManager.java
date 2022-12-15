@@ -4,6 +4,7 @@ import ru.yandex.taskTracker.history.HistoryManager;
 import ru.yandex.taskTracker.model.Epic;
 import ru.yandex.taskTracker.model.SubTask;
 import ru.yandex.taskTracker.model.Task;
+import ru.yandex.taskTracker.InMemoryTaskManager;
 
 
 
@@ -94,26 +95,45 @@ public class FileBackedTasksManager extends InMemoryTaskManager{
         save();
     }
 
+    @Override
+    public Task getTaskById(int id) {
+        save();
+        return super.getTaskById(id);
+
+    }
+
+    @Override
+    public SubTask getSubTaskById(int id) {
+        save();
+        return super.getSubTaskById(id);
+    }
+
+    @Override
+    public Epic getEpicById(int id) {
+        save();
+        return super.getEpicById(id);
+    }
 
     private void save(){
         try(BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file))){
-            bufferedWriter.write("id,type,name,status,description,epic");
+            bufferedWriter.write("id,type,name,status,description,duration,startTime,endTime,epic");
             bufferedWriter.newLine();
 
             for(Task value : taskMap.values()){
                 bufferedWriter.write(toStringTask(value));
                 bufferedWriter.newLine();
             }
-
-            for(SubTask value : subTuskMap.values()){
-                bufferedWriter.write(toStringSubTask(value));
-                bufferedWriter.newLine();
-            }
-
             for(Epic value : epicMap.values()){
                 bufferedWriter.write(toStringEpic(value));
                 bufferedWriter.newLine();
             }
+            for(SubTask value : subTaskMap.values()){
+                bufferedWriter.write(toStringSubTask(value));
+                bufferedWriter.newLine();
+
+            }
+
+
             bufferedWriter.newLine();
             bufferedWriter.newLine();
             bufferedWriter.write(historyToString(historyManager));
@@ -130,22 +150,22 @@ public class FileBackedTasksManager extends InMemoryTaskManager{
         CsvFromString csvFromString = new CsvFromString();
         try(BufferedReader bufferedReader = new BufferedReader(new FileReader(file,StandardCharsets.UTF_8))){
             while(bufferedReader.ready()) {
-                int id = 0;
+
                 String line = bufferedReader.readLine();
                 String[] parameters = line.split(",");
                 if(line.isEmpty()){
                     continue;
-                } else if (parameters[1].equals("TASK")) {
-                    csvFromString.taskFromString(line);
+                }else if (parameters[1].equals("TASK")) {
+                   taskManager.addTask(csvFromString.taskFromString(line));
 
-                } else if (parameters[1].equals("SUBTASK")) {
-                    csvFromString.subTaskFromString(line);
                 } else if (parameters[1].equals("EPIC")) {
-                    csvFromString.epicFromString(line);
+                    taskManager.addEpic(csvFromString.epicFromString(line));
+                } else if (parameters[1].equals("SUBTASK")) {
+                    taskManager.addSubTask(csvFromString.subTaskFromString(line));
                 } else if (parameters[1].equals("type")) {
                     continue;
                 }else {
-                    csvFromString.getHistoryFromString(line);
+                    taskManager.historyManager=csvFromString.getHistoryFromString(line);
                 }
 
             }
@@ -154,21 +174,23 @@ public class FileBackedTasksManager extends InMemoryTaskManager{
         }catch (ManagerSaveException ex){
             throw new ManagerSaveException("ManagerSaveException");
         }
+        taskManager.setId(idOld);
         return taskManager;
     }
     private String toStringTask(Task task){
         String line = task.getId() + "," + task.getType() + "," + task.getName() + "," + task.getStatus() + ","
-                + task.getDescription();
+                + task.getDescription() + "," + task.getDuration() + "," + task.getStartTime() +"," + task.getEndTime();
         return line;
     }
     private String toStringSubTask(SubTask task){
         String line = task.getId() + "," + task.getType() + "," + task.getName() + "," + task.getStatus() + ","
-                + task.getDescription() + "," + task.getEpicId();
+                + task.getDescription() + "," + task.getDuration() + "," + task.getStartTime() + "," + task.getEndTime()
+                + "," + task.getEpicId();
         return line;
     }
     private String toStringEpic(Epic task){
         String line = task.getId() + "," + task.getType() + "," + task.getName() + "," + task.getStatus() + ","
-                + task.getDescription();
+                + task.getDescription() + "," + task.getDuration() + "," + task.getStartTime() + "," +task.getEndTime();
         return line;
     }
     private static String historyToString(HistoryManager manager){
@@ -182,6 +204,33 @@ public class FileBackedTasksManager extends InMemoryTaskManager{
         }
         String historyString = br.toString();
         return historyString;
+    }
+
+    private static int idOld=0;
+    public   void addTask(Task task) {
+        int id = task.getId();
+        if(id>idOld){
+            idOld=id;
+        }
+        taskMap.put(id,task);
+    }
+
+
+    public void addSubTask(SubTask subtask) {
+        int id = subtask.getId();
+        if(id>idOld){
+            idOld=id;
+        }
+        subTaskMap.put(id,subtask);
+    }
+
+
+    public void addEpic(Epic epic) {
+        int id =epic.getId();
+        if(id>idOld){
+            idOld=id;
+        }
+        epicMap.put(id,epic);
     }
 
 

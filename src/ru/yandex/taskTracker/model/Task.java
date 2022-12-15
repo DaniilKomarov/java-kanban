@@ -1,6 +1,8 @@
 package ru.yandex.taskTracker.model;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
+import java.time.format.DateTimeFormatter;
 
 public class Task {
     private String name;
@@ -8,15 +10,20 @@ public class Task {
     protected  int id;
     private TaskStatus status;
     private TaskType type = TaskType.TASK;
+    private Integer duration;
+    private LocalDateTime startTime;
+
 
     public TaskType getType() {
         return type;
     }
 
-    public Task(String name, String description, TaskStatus status) {
+    public Task(String name, String description, TaskStatus status,Integer duration, LocalDateTime startTime) {
         this.name = name;
         this.description = description;
         this.status = status;
+        this.duration = duration;
+        this.startTime = startTime;
 
     }
 
@@ -34,10 +41,12 @@ public class Task {
 
     @Override
     public String toString() {
-        return "Tusk{" +
+        return "Task{" +
                 "name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", status=" + status +
+                ", duration=" + duration +
+                ", startTime=" + startTime +
                 '}';
     }
 
@@ -78,5 +87,29 @@ public class Task {
 
     public void setStatus(TaskStatus status) {
         this.status = status;
+    }
+    public LocalDateTime getEndTime(){
+        if(startTime==null){
+            return null;
+        }else{
+            LocalDateTime endTime = startTime.plusMinutes(duration);
+            return endTime;
+        }
+    }
+
+    public Integer getDuration() {
+        return duration;
+    }
+
+    public LocalDateTime getStartTime() {
+        return startTime;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
+    }
+
+    public void setStartTime(LocalDateTime startTime) {
+        this.startTime = startTime;
     }
 }
