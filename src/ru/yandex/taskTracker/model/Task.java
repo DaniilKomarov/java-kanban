@@ -9,13 +9,13 @@ public class Task {
     private String description;
     protected  int id;
     private TaskStatus status;
-    private TaskType type = TaskType.TASK;
+
     private Integer duration;
     private LocalDateTime startTime;
 
 
     public TaskType getType() {
-        return type;
+        return TaskType.TASK;
     }
 
     public Task(String name, String description, TaskStatus status,Integer duration, LocalDateTime startTime) {

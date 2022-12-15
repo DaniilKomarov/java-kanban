@@ -7,11 +7,11 @@ public class Epic extends Task {
     private LocalDateTime endTime;
 
     protected ArrayList<Integer> subTasksIds = new ArrayList<>();
-     private TaskType type = TaskType.EPIC;
+
 
     @Override
     public TaskType getType() {
-        return type;
+        return  TaskType.EPIC;
     }
 
     public  void setSubTasksIds(int id) {
