@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter;
 public class Task {
     private String name;
     private String description;
-    protected  int id;
+    protected  Integer id;
     private TaskStatus status;
 
     private Integer duration;
@@ -28,7 +28,7 @@ public class Task {
     }
 
 
-    public  int getId(){
+    public  Integer getId(){
         return id;
     }
 

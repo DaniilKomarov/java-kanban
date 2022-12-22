@@ -1,4 +1,4 @@
-package ru.yandex.taskTracker;
+package ru.yandex.taskTracker.http;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
@@ -28,7 +28,36 @@ public class KVServer {
 	}
 
 	private void load(HttpExchange h) {
-		// TODO Добавьте получение значения по ключу
+		try {
+			System.out.println("\n/load");
+			if(!hasAuth(h)){
+				System.out.println("Запрос неавторизован, нужен параметр в query API_TOKEN со значением апи-ключа");
+				h.sendResponseHeaders(403, 0);
+				return;
+			}
+			if(!h.getRequestMethod().equals("GET")){
+				System.out.println("/load ожидает GET-запрос , а получил " + h.getRequestMethod());
+				h.sendResponseHeaders(405, 0);
+			}else{
+				String key = h.getRequestURI().getPath().substring("/load/".length());
+				if (key.isEmpty()){
+					System.out.println("Key для сохранения пустой. key указывается в пути: /save/{key}");
+					h.sendResponseHeaders(400, 0);
+					return;
+				}
+				if (!data.containsKey(key)) {
+					System.out.println("Неправильный ключ: " + key + " не найден");
+					h.sendResponseHeaders(400,0);
+					return;
+				}
+				sendText(h,data.get(key));
+				System.out.println("Значение успешно отправлено для ключа " + key);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			h.close();
+		}
+		h.close();
 	}
 
 	private void save(HttpExchange h) throws IOException {
@@ -103,5 +132,9 @@ public class KVServer {
 		h.getResponseHeaders().add("Content-Type", "application/json");
 		h.sendResponseHeaders(200, resp.length);
 		h.getResponseBody().write(resp);
+	}
+	public void stop(){
+		System.out.println("Сервер остановлен");
+		server.stop(0);
 	}
 }

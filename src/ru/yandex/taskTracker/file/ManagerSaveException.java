@@ -1,4 +1,4 @@
-package ru.yandex.taskTracker;
+package ru.yandex.taskTracker.file;
 
 import java.io.IOException;
 

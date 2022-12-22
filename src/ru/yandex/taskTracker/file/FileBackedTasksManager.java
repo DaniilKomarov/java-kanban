@@ -1,4 +1,4 @@
-package ru.yandex.taskTracker;
+package ru.yandex.taskTracker.file;
 
 import ru.yandex.taskTracker.history.HistoryManager;
 import ru.yandex.taskTracker.model.Epic;
@@ -114,7 +114,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager{
         return super.getEpicById(id);
     }
 
-    private void save(){
+    protected void save(){
         try(BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file))){
             bufferedWriter.write("id,type,name,status,description,duration,startTime,endTime,epic");
             bufferedWriter.newLine();
@@ -207,7 +207,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager{
     }
 
     private static int idOld=0;
-    public   void addTask(Task task) {
+    private void addTask(Task task) {
         int id = task.getId();
         if(id>idOld){
             idOld=id;
@@ -216,7 +216,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager{
     }
 
 
-    public void addSubTask(SubTask subtask) {
+    private void addSubTask(SubTask subtask) {
         int id = subtask.getId();
         if(id>idOld){
             idOld=id;
@@ -225,7 +225,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager{
     }
 
 
-    public void addEpic(Epic epic) {
+    private void addEpic(Epic epic) {
         int id =epic.getId();
         if(id>idOld){
             idOld=id;

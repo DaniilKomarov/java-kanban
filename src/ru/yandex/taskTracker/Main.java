@@ -1,13 +1,16 @@
 package ru.yandex.taskTracker;
+import ru.yandex.taskTracker.http.HttpTaskManager;
+import ru.yandex.taskTracker.http.KVServer;
 import ru.yandex.taskTracker.model.*;
 
-import java.io.File;
+import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.List;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+        KVServer kvServer = Managers.getDefaultKVServer();
+        kvServer.start();
         TaskManager manager = Managers.getDefault();
 
         Task task1 = new Task("Task1","gfg",TaskStatus.NEW,30,null);
@@ -48,6 +51,7 @@ public class Main {
         manager.getSubTaskById(3);
         System.out.println(manager.getHistory());
         manager.getSubTaskById(6);
+        manager.removeTaskById(1);
         System.out.println(manager.getHistory());
 
 
@@ -55,14 +59,19 @@ public class Main {
 
 
 
-
-
-        FileBackedTasksManager manager1 = FileBackedTasksManager.loadFromFile(new File("resources/pam"));
+        HttpTaskManager manager1 = new HttpTaskManager(KVServer.PORT);
+        manager1.load();
         System.out.println(manager1.getAllListTask());
-        System.out.println(manager1.getHistory());
-        manager1.createSubTask(subtask5);
         System.out.println(manager1.getAllListEpic());
-        System.out.println(manager1.getSubTaskById(6));
+        System.out.println(manager.getHistory());
+        System.out.println(manager.getPrioritizedTasks());
+        kvServer.stop();
+
+
+
+
+
+
 
 
 

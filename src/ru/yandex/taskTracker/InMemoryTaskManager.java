@@ -122,7 +122,9 @@ public class InMemoryTaskManager implements TaskManager {
     }
     @Override
     public void clearAllTask(){
-
+        for (Task task : taskMap.values()){
+            prioritizedTasks.remove(task);
+        }
         taskMap.clear();
     }
     @Override
